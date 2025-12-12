@@ -1,40 +1,49 @@
-express-employees-crud
+Employee Manager — Express + MongoDB CRUD App
 
-A simple and clean Node.js + Express + MongoDB CRUD API for managing employee data.
-Built with Mongoose, REST API routes, and a modular MVC folder structure.
+A clean and simple Employee Management System built with
+Node.js, Express, MongoDB, Mongoose & EJS frontend.
 
-🚀 Features
-Full CRUD operations for Employees
+👉 Live Demo:
+🔗 https://employee-manager-48cf.onrender.com/employees/view
+
+✨ Features
+Full CRUD operations (Create, Read, Update, Delete)
 MongoDB Atlas integration using Mongoose
-Clean Controller + Routes structure
-Environment variables via dotenv
-JSON-based API responses
-Error handling + status codes
-Production-ready structure
+EJS-based frontend UI with form + table
+Modular MVC folder structure
+REST API endpoints
+Clean controller logic
+Error handling + proper status codes
+Hosted on Render
 
 🛠️ Tech Stack
 Node.js
 Express.js
 MongoDB (Atlas)
-Mongoose ORM
-dotenv for environment config
-Nodemon for development
+Mongoose
+EJS (Frontend)
+dotenv
+nodemon (dev only)
 
 📂 Project Structure
 express-employees-crud/
 │
-├── controllers/
-│   └── employeeController.js
+├── backend/
+│   ├── controllers/
+│   │   └── employeeController.js
+│   ├── models/
+│   │   └── Employee.js
+│   ├── routes/
+│   │   └── employeeRoutes.js
+│   ├── views/
+│   │   └── employees.ejs
+│   ├── public/
+│   │   └── css/style.css
+│   ├── server.js
+│   ├── package.json
+│   └── .env
 │
-├── models/
-│   └── Employee.js
-│
-├── routes/
-│   └── employeeRoutes.js
-│
-├── server.js
-├── package.json
-└── .env
+└── README.md
 
 🔧 Installation
 Clone the repo:
@@ -87,6 +96,26 @@ Whitelist your IP
 Create DB user
 Get connection string
 Paste into .env
+
+🖥️ Frontend (EJS View)
+Your UI lives at:
+👉 /employees/view
+
+This page includes:
+Employee Form
+Employee Table
+Add / Update / Delete functionality
+Fetch API integration
+Live link again:
+🔗 https://employee-manager-48cf.onrender.com/employees/view
+☁️ Deployment (Render)
+
+This project is deployed using Render:
+Root Directory: express-employees-crud/backend
+Build Command: npm install
+Start Command: npm start
+Environment Vars:
+MONGODB_URI
 
 🙌 Author
 Dilli Prasad
