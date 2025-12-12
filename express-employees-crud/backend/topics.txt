@@ -1,0 +1,26 @@
+Express with REST APIs, Routes, Methods, MVC (Model View Controller), CRUD (Create, Read, Update, Delete)
+Express with mongoose
+
+APIs - Application Programming Interface
+REST - Representational State Transfer
+
+A REST API is a set of rules and conventions for building and interacting with web services.
+To communicate between different software systems over the internet by using standard HTTP methods and principles.
+
+HTTP Methods
+GET, POST, PUT, Delete, PATCH
+By using these methods we can perform the CRUD operations.
+
+
+Routes
+In the context of API developement, "routes" typically refer to the mapping of URLs or endpoints to specific funcitons or actions on both the API server and client.
+
+MVC (Model View Controller)
+MVC we can say architecture or design
+
+User ->request-> Controller ->request information-> Model ->response information-> Controller ->sendData-> View ->response-> User
+
+
+
+
+
