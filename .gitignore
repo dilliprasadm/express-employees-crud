@@ -1,0 +1,5 @@
+express-employees-crud/backend/node_modules/
+express-employees-crud/backend/.env
+
+node_modules/
+.env

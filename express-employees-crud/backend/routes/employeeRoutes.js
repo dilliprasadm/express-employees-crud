@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const employeeController = require("../controllers/employeeController");
-const Employee = require("../models/Employee");
+// const Employee = require("../models/Employee");
 
 // GET, POST, PUT/PATCH, DELETE routes for Employee
 
@@ -25,6 +25,12 @@ const Employee = require("../models/Employee");
 //   }
 // });
 
+// View route – serves the EJS page
+router.get("/view", (req, res) => {
+  res.render("employees");
+});
+
+// API routes
 // POST /employees/add
 router.post("/add", employeeController.createEmployee);
 // GET /employees

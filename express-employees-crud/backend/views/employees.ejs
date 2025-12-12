@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employees</title>
+    <link rel="stylesheet" href="/css/style.css"></link>
+  </head>
+  <body>
+    <h1>Employees</h1>
+
+    <form id="employeeForm">
+      <input type="text" name="name" placeholder="Name" required />
+      <input type="text" name="email" placeholder="Email" required />
+      <input type="number" name="phone" placeholder="Phone" />
+      <input type="text" name="city" placeholder="City" />
+      <button type="submit" >Add Employee</button>
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>City</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="employeeTableBody">
+      </tbody>
+    </table>
+    <script>
+      const tableBody = document.getElementById("employeeTableBody");
+      const form = document.getElementById("employeeForm");
+      const submitBtn = document.getElementById("submitBtn");
+
+      let editingId = null;
+
+      const fetchEmployees = async () =>{
+        const res = await fetch("/employees");
+        const employeeData = await res.json();   
+        
+        tableBody.innerHTML = "";
+
+        employeeData.forEach(emp => {
+          const row = `
+          <tr>
+            <td> ${emp.name}</td>
+            <td> ${emp.email}</td>
+            <td> ${emp.phone || ""}</td>
+            <td> ${emp.city|| ""}</td>
+            <td> 
+              <button type="button"
+                  onclick="startEdit(
+                    '${emp._id}',
+                    '${emp.name}',
+                    '${emp.email}',
+                    '${emp.phone || ""}',
+                    '${emp.city || ""}'
+                  )">
+                  Update
+              </button>
+              <button onclick = "deleteEmployee('${emp._id}')">
+                Delete
+              </button>
+            </td>
+          </tr>
+          `;
+          tableBody.innerHTML += row;
+        })
+    }
+
+  //   form.addEventListener("submit", async(e)=>{
+  //     e.preventDefault();
+
+  //     const formData = new FormData(form);
+  //     const body = {
+  //       name: formData.get("name"),
+  //       email: formData.get("email"),
+  //       phone: formData.get("phone"),
+  //       city: formData.get("city"),
+  //     };
+
+  //     await fetch("/employees/add",{
+  //       method: "POST",
+  //       headers: { "Content-type": "application/json"},
+  //       body: JSON.stringify(body),
+  //     });
+
+  //     form.reset();
+  //     fetchEmployees();
+  //   })
+
+  //   async function updateEmployee(id, name, email, phone, city) {
+  // const body = { name, email, phone, city };
+
+  //   await fetch(`/employees/${id}`, {
+  //     method: "PUT",
+  //     headers: { "Content-type": "application/json" },
+  //     body: JSON.stringify(body),
+  //   });
+
+  //   fetchEmployees();
+  // }
+  function startEdit(id, name, email, phone, city) {
+        form.name.value = name;
+        form.email.value = email;
+        form.phone.value = phone || "";
+        form.city.value = city || "";
+
+        editingId = id;
+        submitBtn.textContent = "Update Employee";
+      }
+
+      // Handle Add / Update using the same form
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const body = {
+          name: formData.get("name"),
+          email: formData.get("email"),
+          phone: formData.get("phone"),
+          city: formData.get("city"),
+        };
+
+        if (!editingId) {
+          // ADD
+          await fetch("/employees/add", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify(body),
+          });
+        } else {
+          // UPDATE
+          await fetch(`/employees/${editingId}`, {
+            method: "PUT",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify(body),
+          });
+          editingId = null;
+          submitBtn.textContent = "Add Employee";
+        }
+
+        form.reset();
+        fetchEmployees();
+      });
+
+    async function deleteEmployee(id){
+      await fetch(`/employees/${id}`,{
+        method : "DELETE"
+      })
+      fetchEmployees();
+    }
+
+    fetchEmployees();
+    </script>
+  </body>
+</html>
