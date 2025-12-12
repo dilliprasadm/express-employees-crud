@@ -33,6 +33,10 @@ mongoose
   });
 
 // API + view routes
+app.get("/", (req, res) => {
+  res.redirect("/employees/view");
+});
+
 app.use("/employees", employeeRoutes);
 
 app.listen(PORT, () => {
